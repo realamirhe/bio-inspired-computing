@@ -1,15 +1,16 @@
-def genetic(size, Chromosome, Memory, next_generation, stop_condition, report=print):
+def genetic(n, size, initate, Memory, mutate_ratio, parent_select, next_generation,  report=print):
     # initate
-    population = [Chromosome.initate() for i in range(size)]
+    population = [initate(size) for i in range(n)]
+
     # memorize one of individuals
-    memory = Memory.initate(population[0])
+    memory = Memory(population[0])
     # iteration count
     iteration = 0
     stop_condition = False
 
     # repeat until stop condition reached
     while True:
-        iteration = 0
+        iteration += 1
 
         if stop_condition:
             break
@@ -21,16 +22,14 @@ def genetic(size, Chromosome, Memory, next_generation, stop_condition, report=pr
             # mutation
             x = x * mutate_ratio
             y = y * mutate_ratio
-
-            x = Chromosome.initate(x)
-            y = Chromosome.initate(y)
-
+            # update population
             population.append(x)
             population.append(y)
 
         # generation selection
-        population = next_generation(population)
+        population = next_generation(population, n, 0.3)
 
-        stop_condition, best_ever = memory.observe(population)
+        stop_condition, best_ever = memory.observer(iteration, n, population)
 
         report(iteration, best_ever)
+    report(iteration, best_ever, True)
