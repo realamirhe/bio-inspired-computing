@@ -1,6 +1,6 @@
-def genetic(n, size, initate, Memory, mutate_ratio, parent_select, next_generation,  report=print):
+def genetic(n, size, initate, Memory, mutate_ratio, parent_select, next_generation,  report):
     # initate
-    population = [initate(size) for i in range(n)]
+    population = [initate(size) for _ in range(n)]
 
     # memorize one of individuals
     memory = Memory(population[0])
@@ -9,11 +9,8 @@ def genetic(n, size, initate, Memory, mutate_ratio, parent_select, next_generati
     stop_condition = False
 
     # repeat until stop condition reached
-    while True:
+    while not stop_condition:
         iteration += 1
-
-        if stop_condition:
-            break
 
         # selection
         for (X, Y) in parent_select(population):
@@ -32,4 +29,4 @@ def genetic(n, size, initate, Memory, mutate_ratio, parent_select, next_generati
         stop_condition, best_ever = memory.observer(iteration, n, population)
 
         report(iteration, best_ever)
-    report(iteration, best_ever, True)
+    report(iteration, best_ever, solution=True)
