@@ -157,5 +157,5 @@ def report(iteration, chromosome, solution=False):
 
 
 if __name__ == "__main__":
-    genetic(1000, 20, initiate, Memory, 0.4,
+    genetic(100, 20, initiate, Memory, 0.4,
             parent_select, next_generation, report)
