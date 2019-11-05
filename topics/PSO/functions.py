@@ -2,10 +2,24 @@ import math
 import random
 from algorithm import PSO
 
-# CONST
-ω = 0.3
-μ = 0.4
-θ = 0.3
+
+def aging(iteration):
+    # (ω, μ, θ)
+    # baby -> don't listen (0.9, 0.01, 0.0)
+    # child -> learn by some tips (0.6, 0.1, 0.3)
+    # teenage -> don't listen by stupidness (0.6, 0.5, 0.01)
+    # middle_age -> listen to all other and personal 0.1, 0.5, 0.6)
+    # old -> user their life tips (0.05, 0.7, 0.2)
+
+    if iteration < 5:
+        return (0.9, 0.01, 0.0)
+    if iteration < 100:
+        return (0.6, 0.1, 0.3)
+    if iteration < 200:
+        return (0.6, 0.5, 0.01)
+    if iteration < 350:
+        return (0.1, 0.5, 0.6)
+    return (0.05, 0.7, 0.2)
 
 
 class Vector:
@@ -76,7 +90,8 @@ class Particle:
         else:
             self.fitness = current_fitness
 
-    def update_pos(self, g_best):
+    def update_pos(self, g_best, iteration):
+        ω, μ, θ = aging(iteration)
         self.v = self.v * ω + \
             (self.p_best - self.vector) * (μ * p_rand()) + \
             (g_best.vector - self.vector) * (θ * g_rand())
@@ -162,4 +177,6 @@ if __name__ == "__main__":
     global cost_function
     cost_function = f
     bounds = [(-10, 10), (-10, 10)]
+    # cost_function = g
+    # bounds = [(-100, 100), (-100, 100)]
     PSO(30, bounds, Memory, initate, report)

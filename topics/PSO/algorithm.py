@@ -14,7 +14,7 @@ def PSO(n, bounds, Memory, initate, report):
 
         # update velocity and position for each particle
         for particle in swarm:
-            particle.update_pos(best_ever)
+            particle.update_pos(best_ever, iteration)
 
         stop_condition, best_ever = memory.observer(iteration, n, swarm)
 

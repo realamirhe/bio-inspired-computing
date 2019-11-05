@@ -1,0 +1,39 @@
+<POS>
+- initiate population with random number within the range
+- keep track of best particle with memory Cell
+- update particles by agin config for (ω, μ, θ) in each iteration
+    # baby -> don't listen (high, low, really_low)
+    # child -> learn by some tips (middle, low, low)
+    # teenager -> don't listen by stupidness (middle, middle, really_low)
+    # middle_age -> listen to all other and personal (low, middle, middle)
+    # old -> user their life tips (really_low, high, low)
+- update stop_condition in each iteration
+
+Particle
+    *Vector(
+        tuple,
+        + := <tuple+tuple => tuple>,
+        - := <tuple-tuple => tuple>,
+        * := <tuple*k => tuple>,
+    )
+    fitness
+    personal_best experience in all iterations
+    global_best experience in all iterations of all particles
+    update_pos<function>
+
+Memory
+    history cell to remember best of best in all generation
+    observer => stop_condition, best
+
+fitness function for minimize objective => -1 * cost
+
+
+size of start population 30
+bounds are checked for each new point which are made in update_pos and return a random in range_point for every over range point
+cost function is function you want to minimize
+
+stop_condition =>
+    if probability(x <= 0.15):
+        best doesn't change in some iteration
+        or
+        iteration gets more than some value
