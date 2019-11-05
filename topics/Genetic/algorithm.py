@@ -13,7 +13,7 @@ def genetic(n, size, initate, Memory, mutate_ratio, parent_select, next_generati
         iteration += 1
 
         # selection
-        for (X, Y) in parent_select(population):
+        for (X, Y) in parent_select(population, n):
             # crossover
             x, y = X + Y
             # mutation
@@ -25,7 +25,6 @@ def genetic(n, size, initate, Memory, mutate_ratio, parent_select, next_generati
 
         # generation selection
         population = next_generation(population, n, 0.3)
-
         stop_condition, best_ever = memory.observer(iteration, n, population)
 
         report(iteration, best_ever)

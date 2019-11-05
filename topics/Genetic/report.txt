@@ -1,0 +1,44 @@
+- make cost_map for traveling distance between cities
+-initialize chromosome with 20 city in shuffle
+- Genetic Algorithm
+    * Memory Component
+    * Tournament selection as Parent selection
+    * Config Mutation with mutation_ratio
+    * Elitism with Exploration for next_generation
+
+
+Memory Component helps you
+    * best := Keep best chromosome upon all iteration
+    * observer<Func> => stop_condition, best
+
+    stop_condition:
+        # iteration > 5000
+        print("Terminated:: NO IMPROVEMENT ::")
+
+        # count > 700 (for t_step = 0)
+        print("Terminated:: MAX ITERATION ::")
+
+        # best - average_of_distance < threshold
+        print("Terminated:: CONVERGED ::")
+
+
+Tournament_selection
+    * get best of some random sampled chromosome
+
+
+Elitism with Exploration =>
+    Tops of individual in population + explored(worst of individual) + some of individual from normal population + explored(tops of individual)
+
+    With 0.7 mutation rate for exploration
+
+we will converge if log(best - average) < -10
+
+mutation => [scramble]
+crossover => [order recombination]
+fitness => [1 / cost]
+
+
+chromosome => (array, + :=<crossover>, * :=<mutation>, fitness_calculator)
+
+size of population : =100
+mutation_ratio := 0.6
